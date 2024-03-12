@@ -15,17 +15,5 @@ class Chat(Base):
     chat_type: Mapped[str] = mapped_column(
         sa.Text, unique=False, nullable=False
     )
-    """ Chat type can be either ‘private’, ‘group’, ‘supergroup’ or ‘channel’ """
-    title: Mapped[str] = mapped_column(sa.Text, unique=False, nullable=True)
-    """ Title of the chat """
-    chat_name: Mapped[str] = mapped_column(
-        sa.Text, unique=False, nullable=True
-    )
-    """ Telegram chat full name """
-    chat_user: Mapped[int] = mapped_column(
-        sa.ForeignKey('user.id', ondelete='CASCADE'),
-        unique=False,
-        nullable=True,
-    )
-    channel = relationship('Channel', uselist=False)
+    message = relationship('Massage', uselist=False)
     """ Foreign key to user (it can has effect only in private chats) """

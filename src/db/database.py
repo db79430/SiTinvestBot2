@@ -17,7 +17,7 @@ def create_async_engine(url: URL | str) -> AsyncEngine:
     """
     return _create_async_engine(url = url, echo = conf.debug, pool_pre_ping = True)
 
-print(conf.db.build_connection_str())
+
 class Database:
     """Database class.
 

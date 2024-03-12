@@ -49,9 +49,11 @@ class BotConfig:
     """Bot configuration."""
 
     token: str | None = getenv('BOT_TOKEN')
-    chat: str | None = getenv('CHAT_ID')
-    print("Value of BOT_TOKEN:", token)
-    print("Value of CHAT_ID:", chat)
+
+
+@dataclass
+class ChatConfig:
+    chat_id: str | None = getenv('CHAT_ID')
 
 
 @dataclass
@@ -64,7 +66,7 @@ class Configuration:
     db = DatabaseConfig()
     redis = RedisConfig()
     bot = BotConfig()
-    print(redis)
+    chat = ChatConfig()
 
 
 conf = Configuration()

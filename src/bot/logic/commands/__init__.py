@@ -1,4 +1,5 @@
 """This package is used for a bot logic implementation."""
+from src.bot.logic.commands.commands import commands_router
 from src.bot.logic.commands.start import start_router as start_router
 from src.bot.logic.handlers import handlers_router
 from src.bot.logic.register.router import register_router
@@ -10,4 +11,5 @@ bot_router.include_routers(
     start_router,
     register_router,
     handlers_router,
+    commands_router
 )
