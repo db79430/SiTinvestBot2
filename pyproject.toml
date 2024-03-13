@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "SiIInvest Bot org2"
+name = "SiIInvest Bot org2.2"
 version = "0.4.0"
 description = ""
 authors = ["DB79430 <db79430@gmail.com>"]
