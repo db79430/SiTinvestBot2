@@ -19,6 +19,11 @@ class User(Base):
         sa.Text, unique=False, nullable=True
     )
     """ Telegram full name """
-    phone_number: Mapped[str] = mapped_column(
+    contact: Mapped[str] = mapped_column(
         sa.Text, unique=False, nullable=True
     )
+
+    phone_number: Mapped[str] = mapped_column(
+        sa.Text, unique = False, nullable = True
+    )
+

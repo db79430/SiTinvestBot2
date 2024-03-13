@@ -19,13 +19,13 @@ class UserRepo(Repository[User]):
             user_id: int,
             user_name: str = None,
             full_name: str = None,
-            phone_number: str = None,
+            contact: str = None,
     ) -> User:
         """Insert a new user into the database
         :param user_id: Telegram user id
         :param user_name: Telegram username
         :param full_name: Telegram profile first name
-        :param phone_number: Telegram phone user.
+        :param contact: Telegram phone user.
 
         """
         new_user = await self.session.merge(
@@ -33,7 +33,7 @@ class UserRepo(Repository[User]):
                 user_id = user_id,
                 user_name = user_name,
                 full_name = full_name,
-                phone_number = phone_number,
+                contact = contact,
             )
         )
         print("new_user", new_user)

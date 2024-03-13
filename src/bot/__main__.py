@@ -27,6 +27,7 @@ async def start_bot():
 
     await dp.start_polling(
         bot,
+        skip_updates = True,
         allowed_updates = dp.resolve_used_update_types(),
         **TransferData(
             engine = create_async_engine(url = conf.db.build_connection_str())

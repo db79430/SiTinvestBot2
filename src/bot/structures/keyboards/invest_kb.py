@@ -1,4 +1,4 @@
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, KeyboardButton, ReplyKeyboardMarkup
 from src.bot.structures.text.text import (
     invest_with_text_btn,
     invest_without_text_btn,
@@ -6,25 +6,24 @@ from src.bot.structures.text.text import (
 )
 
 
-def build_invest_kb() -> InlineKeyboardMarkup:
-    invest_url = InlineKeyboardButton(
-        text="Сайт компании застройщика 'Строй и точка' 🌐",
-        url='https://xn--80apairckhje0d.xn--p1ai/',
-    )
-    invest_without_btn = InlineKeyboardButton(
-        text=invest_without_text_btn, callback_data='invest_without'
-    )
-    invest_with_btn = InlineKeyboardButton(
-        text=invest_with_text_btn, callback_data='invest_with'
-    )
-    partner_btn = InlineKeyboardButton(
-        text=partner_text_btn, callback_data='partner_with'
-    )
-    rows = [
-        [invest_url],
-        [invest_without_btn],
-        [invest_with_btn],
-        [partner_btn],
-    ]
-    markup = InlineKeyboardMarkup(inline_keyboard=rows)
-    return markup
+invest_categories_kb = ReplyKeyboardMarkup(
+    keyboard = [
+        [KeyboardButton(text='Инвестирование (ипотечное кредитование) 💸')],
+        [KeyboardButton(text='Инвестирование собственных средств 💵')],
+        [KeyboardButton(text='Стать нашим партнером 💼')],
+    ],
+    resize_keyboard = True,
+    resize_horizontal = True,
+)
+
+
+# invest_categories_kb = ReplyKeyboardMarkup(
+#     keyboard = [
+#         [KeyboardButton(text='Инвестирование (ипотечное кредитование) 💸')],
+#         [KeyboardButton(text='Инвестирование собственных средств 💵')],
+#         [KeyboardButton(text='Стать нашим партнером 💼')],
+#     ],
+#     resize_keyboard = True,
+#     resize_horizontal = True,
+# )
+
