@@ -27,7 +27,7 @@ class DatabaseConfig:
             password = self.passwd,
             port = self.port,
             host = self.host,
-        ).render_as_string(hide_password = True)
+        ).render_as_string(hide_password = False)
 
 
 @dataclass
