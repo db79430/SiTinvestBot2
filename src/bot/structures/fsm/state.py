@@ -4,7 +4,8 @@ from aiogram.fsm.state import StatesGroup, State
 class RegisterGroup(StatesGroup):
     confirmation = State()
     regFullName = State()
-    regContacts = State()
+    regPhone = State()
+    regTgName = State()
     regInfo = State()
     select = State()
 
@@ -23,6 +24,5 @@ class RegisterChat(StatesGroup):
     chat_name = State()
 
 
-class RegisterButtonSelect(StatesGroup):
-    button = State()
-    button_id = State()
+class UserClickButton(StatesGroup):
+    choice = State()
