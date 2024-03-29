@@ -27,8 +27,9 @@ async def set_commands(bot: Bot):
 async def show_menu(message: Message, state: FSMContext):
     state = await state.get_data()
     user_id = state.get('user_id')
+    confirmation = state.get('confirmation')
     if not user_id:
-        await start_wo_register(message, state)
+        await start_wo_register(message, confirmation)
     else:
         await message.answer(text = f'\n 🤝Взаимодейтсвие с компанией SiTInvest\n'
                                     f'\n 💼 Ниже представлено меню бота',
@@ -39,8 +40,9 @@ async def show_menu(message: Message, state: FSMContext):
 async def show_companies(message: Message, state: FSMContext):
     state = await state.get_data()
     user_id = state.get('user_id')
+    confirmation = state.get('confirmation')
     if not user_id:
-        await start_wo_register(message, state)
+        await start_wo_register(message, confirmation)
     else:
         await message.answer_photo(photo = TEAM_IMG)
         await message.answer(text = f'\n 🤝Взаимодейтсвие с компанией SiTInvest\n'
