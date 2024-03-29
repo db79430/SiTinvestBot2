@@ -26,21 +26,21 @@ async def set_commands(bot: Bot):
 
 @commands_router.message(Command('menu'))
 async def show_menu(message: Message, state: FSMContext):
-    state_data = await state.get_state()
-    user_id = state_data.get('user_id')
+    state = await state.get_data()
+    user_id = state.get('user_id')
     if not user_id:
         await message.answer(text = 'Для работы с ботом, нужно сначала пройти регистрацию',
-                         reply_markup = register_kb)
+                             reply_markup = register_kb)
     else:
         await message.answer(text = f'\n 🤝Взаимодейтсвие с компанией SiTInvest\n'
-                                f'\n 💼 Ниже представлено меню бота',
-                         reply_markup = invest_categories_kb)
+                                    f'\n 💼 Ниже представлено меню бота',
+                             reply_markup = invest_categories_kb)
 
 
 @commands_router.message(Command('company'))
 async def show_companies(message: Message, state: FSMContext):
-    state_data = await state.get_state()
-    user_id = state_data.get('user_id')
+    state = await state.get_data()
+    user_id = state.get('user_id')
     if not user_id:
         await message.answer(text = 'Для работы с ботом, нужно сначала пройти регистрацию',
                              reply_markup = register_kb)

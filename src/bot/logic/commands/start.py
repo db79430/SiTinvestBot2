@@ -7,8 +7,6 @@ from aiogram.types import Message
 from src.bot.structures.fsm.state import RegisterGroup, UserClickButton
 from src.bot.structures.keyboards.invest_kb import invest_categories_kb
 from src.bot.structures.keyboards.registration_kb import register_kb
-from src.configuration import conf
-from src.db.db_commands import check_user_exists, is_registered_user
 
 start_router = Router(name = 'start')
 
