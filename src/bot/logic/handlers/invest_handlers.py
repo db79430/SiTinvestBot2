@@ -20,6 +20,7 @@ PARTNER_IMG = 'AgACAgIAAxkBAAIMrmYHDggK-FDF1OGSrOxxhvqT4Z6AAAJd2TEb9jw4SHz6JRgGS
 INVEST_IMG = 'AgACAgIAAxkBAAIMt2YHDzCOTrqgnnibWcozL8Xg7ep6AAJn2TEb9jw4SHCkLEB9A41OAQADAgADeQADNAQ'
 CONCEPT_IMG = 'AgACAgIAAxkBAAIMmWYHDJOfaHh9xGmbBJVu3D_IONTiAAJG2TEb9jw4SMvTtsVQMPrxAQADAgADeQADNAQ'
 CHAT_ID = '-1002008269761'
+INVEST_MONEY_IMG = 'AgACAgIAAxkBAAINN2YHIqq6W64bRktHF6FJolIYXjGxAALh2TEb9jw4SJYW7ilgENeEAQADAgADeQADNAQ'
 
 
 @invest_router.message(F.text == 'Инвестирование (ипотечное кредитование) 💸')
@@ -36,7 +37,7 @@ async def invest_without_callback_button(message: Message, state: FSMContext):
 
 @invest_router.message(F.text == 'Инвестирование собственных средств 💵')
 async def invest_with_callback_button(message: Message, state: FSMContext):
-
+    await message.answer_photo(photo = INVEST_IMG)
     await message.answer(text = f"Для подробной информации, нажимай кнопку 👇🏻\n "
                                 f" 💬 Связаться со мной",
                          reply_markup = contact_us)
