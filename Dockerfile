@@ -22,5 +22,5 @@ COPY poetry.lock pyproject.toml ./
 RUN poetry check && \
     poetry install --no-interaction --no-cache --no-root
 
-COPY ../.. .
+COPY .. .
 CMD ["poetry", "run", "python", "-m", "src.bot"]
