@@ -12,7 +12,8 @@ from src.db.db_commands import check_user_exists, is_registered_user
 
 start_router = Router(name = 'start')
 
-START_IMG = 'AgACAgIAAxkBAAIDY2XuDyW3T3ObPepm3go80JDJygweAAJy2TEbRVZwS9gHq-wc7N3_AQADAgADeQADNAQ'
+START_IMG = 'AgACAgIAAxkBAAIM0WYHELotGSRsX5XcN6RiD55xyd1TAAJF2TEb9jw4SMQGhbUeBqidAQADAgADeQADNAQ'
+DOING_IMG = 'AgACAgIAAxkBAAIMz2YHEII3036FyBBhF28vb9UWqEX8AAJJ2TEb9jw4SPbiH30jRltwAQADAgADeQADNAQ'
 
 
 @start_router.message(CommandStart())
@@ -20,8 +21,8 @@ async def start_wo_register(message: Message, state: FSMContext):
     await state.set_state(RegisterGroup.confirmation)
     state = await state.get_data()
     user_id = state.get('user_id')
-    print(user_id)
-    print(state)
+    text = (f'\n Ниже представлено меню бота 💼\n'
+            f'\n Выбери интересующую категорию 👇🏻\n')
     if not user_id:
         await message.answer_photo(photo = START_IMG)
         await message.answer(
@@ -34,9 +35,8 @@ async def start_wo_register(message: Message, state: FSMContext):
             reply_markup = register_kb
         )
     else:
-        await message.answer(text = f'\n 🤝Взаимодейтсвие с компанией SiTInvest\n'
-                                    f'\n 💼 Ниже представлено меню бота',
-                             reply_markup = invest_categories_kb)
+        await message.answer_photo(photo = DOING_IMG, caption = text,
+                                   reply_markup = invest_categories_kb)
 
 
 @start_router.message(F.photo)

@@ -9,8 +9,8 @@ from ...structures.keyboards.invest_kb import invest_categories_kb
 from .router import register_router
 from ...structures.keyboards.registration_kb import contacts_btn
 
-CATEGORIES_IMG = 'AgACAgIAAxkBAAIDm2XuGgRJg3X8YU6hqBSKIssbdjG8AAKH2TEbRVZwS7nkLuVLMxOGAQADAgADeQADNAQ'
-info = 'Выбери интересующий раздел.\n'
+CATEGORIES_IMG = 'AgACAgIAAxkBAAIMzWYHEA3Ksq-HvEmDemrtXT0LwMZNAAJ02TEb9jw4SMCxC-4t-DnyAQADAgADeQADNAQ'
+info = 'Выбери интересующий раздел 👇🏻.\n'
 
 
 @register_router.callback_query(F.data == 'register', RegisterGroup.confirmation)

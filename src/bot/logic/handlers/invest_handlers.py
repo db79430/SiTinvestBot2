@@ -7,36 +7,38 @@ from aiogram.types import (
 )
 from aiogram import F, Router
 
-from src.bot.logic.register.successfully_register import send_message_chat_partner_handler
+from src.bot.logic.register.successfully_register import send_message_chat_handler
 from src.bot.structures.keyboards.invest_kb import contact_us, invest_categories_kb, menu_kb
-from src.bot.structures.keyboards.registration_kb import contacts_btn
 from src.configuration import conf
 
 invest_router = Router(name = 'invest_router')
 
-WHO_PARTNER = 'AgACAgIAAxkBAAIDsWXuJKeydI7nhzcJ3F7yjJ5J4IdbAAKi2TEbRVZwS4IKS5ivRinFAQADAgADeQADNAQ'
-HOW_WORK = 'AgACAgIAAxkBAAIDs2XuJU0zS475Z36e26Kuw0AcQoELAAKj2TEbRVZwS2TNjB05rvXJAQADAgADeQADNAQ'
-PR = 'AgACAgIAAxkBAAIDtWXuJaDHNLTjF-njKX1pDD04KPMMAAKl2TEbRVZwS3E06ptv9ZdnAQADAgADeQADNAQ'
-PARTNER_IMG = 'AgACAgIAAxkBAAIJbWYCZULeAAHT0-MC4mtK2AmUCphewgACiOAxG5AnEUhtxe7U2KM0iAEAAwIAA3kAAzQE'
-INVEST_IMG = 'AgACAgIAAxkBAAIJqGYD4PYDqP-LgyR5uqyWbUL31nHNAAKU2TEbYNAhSMlV-inL_zzpAQADAgADeQADNAQ'
+WHO_PARTNER = 'AgACAgIAAxkBAAIMn2YHDUE3t9CI6-LSCR5P4P6u599hAAJQ2TEb9jw4SM_xr_T4kZ4SAQADAgADeQADNAQ'
+HOW_WORK = 'AgACAgIAAxkBAAIMm2YHDLKtEibJ7-G_izTeHHwx0x2cAAJH2TEb9jw4SAyOM_wQvHF8AQADAgADeQADNAQ'
+PR = 'AgACAgIAAxkBAAIMoWYHDa9s8-dTbHjdrrnwNUC2rDgrAAJZ2TEb9jw4SCInvcCg0kZwAQADAgADeQADNAQ'
+PARTNER_IMG = 'AgACAgIAAxkBAAIMrmYHDggK-FDF1OGSrOxxhvqT4Z6AAAJd2TEb9jw4SHz6JRgGS-dqAQADAgADeQADNAQ'
+INVEST_IMG = 'AgACAgIAAxkBAAIMt2YHDzCOTrqgnnibWcozL8Xg7ep6AAJn2TEb9jw4SHCkLEB9A41OAQADAgADeQADNAQ'
+CONCEPT_IMG = 'AgACAgIAAxkBAAIMmWYHDJOfaHh9xGmbBJVu3D_IONTiAAJG2TEb9jw4SMvTtsVQMPrxAQADAgADeQADNAQ'
 CHAT_ID = '-1002008269761'
 
 
 @invest_router.message(F.text == 'Инвестирование (ипотечное кредитование) 💸')
 async def invest_without_callback_button(message: Message, state: FSMContext):
+    await message.answer_photo(photo = INVEST_IMG)
     await message.answer_photo(photo = WHO_PARTNER)
     await message.answer_photo(photo = HOW_WORK)
+    await message.answer_photo(photo = CONCEPT_IMG)
     await message.answer_photo(photo = PR, reply_markup = contact_us)
     await message.answer(text = f"Для подробной информации, нажимай кнопку 👇🏻\n "
-                                f" 💬Связаться со мной",
+                                f" 💬 Связаться со мной",
                          reply_markup = contact_us)
 
 
 @invest_router.message(F.text == 'Инвестирование собственных средств 💵')
 async def invest_with_callback_button(message: Message, state: FSMContext):
-    await message.answer_photo(photo = INVEST_IMG, reply_markup = contact_us)
+
     await message.answer(text = f"Для подробной информации, нажимай кнопку 👇🏻\n "
-                                f" 💬Связаться со мной",
+                                f" 💬 Связаться со мной",
                          reply_markup = contact_us)
 
 
@@ -44,19 +46,16 @@ async def invest_with_callback_button(message: Message, state: FSMContext):
 async def invest_with_callback_button(message: Message, state: FSMContext):
     await message.answer_photo(photo = PARTNER_IMG)
     await message.answer(text = f"Для подробной информации, нажимай кнопку 👇🏻\n "
-                                f"💬Связаться со мной",
+                                f"💬 Связаться со мной",
                          reply_markup = contact_us)
 
 
 @invest_router.message(F.text == 'Связаться со мной 💬')
 async def invest_contact_application(message: Message, state: FSMContext):
-    reg_data = await state.get_data()
-    reg_name = reg_data.get('regTgName')
-    reg_phone = reg_data['phone_number']
     # if (reg_name and not reg_phone) or (reg_phone and not reg_name):
     await message.answer(text = "✅Запрос принят. Скоро мы свяжемся с тобой",
                              reply_markup = menu_kb)
-    await send_message_chat_partner_handler(message, state)
+    await send_message_chat_handler(message, state)
     # else:
     #     await message.answer(text = f"⚠️🤖 Я не увидел Ваших контактов.\n"
     #                                 f"\n   Пожалуйста поделитесь контактом, чтобы я обработал сообщение",

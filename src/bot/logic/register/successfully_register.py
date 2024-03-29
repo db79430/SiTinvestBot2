@@ -37,19 +37,30 @@ async def send_reg_data_tg_user_chat(message: Message, state: FSMContext):
     await message.bot.send_message(conf.chat.chat_id, chat_message)
 
 
-async def send_message_chat_partner_handler(message: Message, state: FSMContext):
+async def send_message_chat_handler(message: Message, state: FSMContext):
     reg_data = await state.get_data()
     reg_id = reg_data.get('user_id')
     reg_name = reg_data.get('regTgName')
-    reg_phone = reg_data['phone_number']
+
+    reg_phone = reg_data.get('phone_number')
     reg_name = reg_data.get('regFullName')
     username = str(message.from_user.username)
-    chat_message_text = (
+    chat_message_text_phone = (
         f"Пользователь @{username} (ID: {reg_id}) отправил запрос связаться с ним\n"
         f"ФИО: {reg_name}\n"
         f"Телeфон: {reg_phone}\n"
     )
-    await message.bot.send_message(conf.chat.chat_id, chat_message_text)
+    chat_message_text_tg = (
+        f"Пользователь @{username} (ID: {reg_id}) отправил запрос связаться с ним\n"
+        f"ФИО: {reg_name}\n"
+    )
+    if reg_phone is None:
+        await message.bot.send_message(conf.chat.chat_id, chat_message_text_tg)
+    else:
+        await message.bot.send_message(conf.chat.chat_id, chat_message_text_phone)
+
+
+
 
 
 

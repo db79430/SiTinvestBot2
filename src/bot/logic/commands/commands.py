@@ -7,11 +7,13 @@ from src.bot.structures.keyboards.invest_kb import invest_categories_kb
 
 commands_router = Router(name = 'commands')
 
+TEAM_IMG = 'AgACAgIAAxkBAAIM3mYHFgVpkFftYQ52MnbrRYN5nk0wAAKc2TEb9jw4SOpRXpF4ZPHEAQADAgADeQADNAQ'
 
 async def set_commands(bot: Bot):
     commands = [
         BotCommand(command = 'start', description = "Запуск бота"),
         BotCommand(command = 'menu', description = "Меню бота"),
+        BotCommand(command = 'company', description = "О компании"),
         BotCommand(command = 'help', description = "Поддержка")
     ]
 
@@ -24,6 +26,14 @@ async def show_menu(message: Message, state: FSMContext):
                                 f'\n 💼 Ниже представлено меню бота',
                          reply_markup = invest_categories_kb)
     await state.set_state(UserClickButton.choice)
+
+
+@commands_router.message(Command('company'))
+async def show_companies(message: Message, state: FSMContext):
+    await message.answer_photo(photo = TEAM_IMG)
+    await message.answer(text = f'\n 🤝Взаимодейтсвие с компанией SiTInvest\n'
+                                f'\n 💼 Ниже представлено меню бота',
+                         reply_markup = invest_categories_kb)
 
 
 @commands_router.message(Command('help'))
