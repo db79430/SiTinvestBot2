@@ -1,11 +1,12 @@
 from aiogram import Bot, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import BotCommand, BotCommandScopeAllPrivateChats, Message
+from aiogram.types import BotCommand, BotCommandScopeAllPrivateChats, CallbackQuery, Message
 
 from src.bot.logic.commands.start import start_wo_register
 from src.bot.structures.fsm.state import UserClickButton
 from src.bot.structures.keyboards.invest_kb import invest_categories_kb
+from src.bot.structures.keyboards.registration_kb import register_kb
 
 commands_router = Router(name = 'commands')
 
@@ -28,7 +29,8 @@ async def show_menu(message: Message, state: FSMContext):
     async with state.get_data() as data:
         user_id = data.get('user_id')
     if not user_id:
-        await start_wo_register(message, state)
+        await message.answer(text = 'Для работы с ботом, нужно сначала пройти регистрацию',
+                                  reply_markup = register_kb)
     else:
         await message.answer(text = f'\n 🤝Взаимодейтсвие с компанией SiTInvest\n'
                                     f'\n 💼 Ниже представлено меню бота',
@@ -39,9 +41,9 @@ async def show_menu(message: Message, state: FSMContext):
 async def show_companies(message: Message, state: FSMContext):
     async with state.get_data() as data:
         user_id = data.get('user_id')
-        confirmation = data.get('confirmation')
     if not user_id:
-        await start_wo_register(message, state)
+        await message.answer(text = 'Для работы с ботом, нужно сначала пройти регистрацию',
+                             reply_markup = register_kb)
     else:
         await message.answer_photo(photo = TEAM_IMG)
         await message.answer(text = f'\n 🤝Взаимодейтсвие с компанией SiTInvest\n'
