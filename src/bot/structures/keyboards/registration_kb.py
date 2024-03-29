@@ -14,11 +14,18 @@ register_kb = InlineKeyboardMarkup(
 
 contacts_btn = ReplyKeyboardMarkup(
     keyboard = [
-        [KeyboardButton(text = "📞 Поделиться контактом ", request_contact = True)],
+        [KeyboardButton(text = "📞 Поделиться контактом ", request_contact=True)],
         [KeyboardButton(text = "🔔 Поделиться именем тг")],
     ],
     resize_keyboard = True,
 
+)
+
+phone_numbers_btn = ReplyKeyboardMarkup(
+    keyboard = [
+        [KeyboardButton(text = "📞 Поделиться контактом ", request_contact=True)],
+    ],
+    resize_keyboard = True,
 )
 
 application = ReplyKeyboardMarkup(keyboard = [
@@ -27,4 +34,3 @@ application = ReplyKeyboardMarkup(keyboard = [
     resize_keyboard = True,
     resize_horizontal = True,
 )
-

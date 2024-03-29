@@ -7,7 +7,7 @@ from src.configuration import conf
 from .successfully_register import send_reg_data_tg_user_chat, send_reg_data_user_chat
 from ...structures.keyboards.invest_kb import invest_categories_kb
 from .router import register_router
-from ...structures.keyboards.registration_kb import contacts_btn
+from ...structures.keyboards.registration_kb import contacts_btn, phone_numbers_btn
 
 CATEGORIES_IMG = 'AgACAgIAAxkBAAIMzWYHEA3Ksq-HvEmDemrtXT0LwMZNAAJ02TEb9jw4SMCxC-4t-DnyAQADAgADeQADNAQ'
 info = 'Выбери интересующий раздел 👇🏻.\n'
@@ -46,9 +46,15 @@ async def register_tg_name(message: Message, state: FSMContext):
         f'\n🤗 Регистрация прошла успешно!\n'
         f'\n👇🏻 Ниже представлены категории инвестирования.\n'
     )
-    await message.answer(text = msg, reply_markup = ReplyKeyboardRemove())
-    await send_reg_data_tg_user_chat(message, state)
-    await send_sit_photo(message, state)
+    if reg_name is None:
+        await message.answer(text = f"🥺 Упппс твой тг никнейм скрыт.\n "
+                                    f"\n Нажми кнопку, пожалуйста, 📞 Поделиться контактом\n"
+                                    f"\n Чтобы продолжить взаимодействие с ботом",
+                             reply_markup = phone_numbers_btn)
+    else:
+        await message.answer(text = msg, reply_markup = ReplyKeyboardRemove())
+        await send_reg_data_tg_user_chat(message, state)
+        await send_sit_photo(message, state)
 
 
 @register_router.message(F.contact)

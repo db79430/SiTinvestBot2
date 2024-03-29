@@ -39,7 +39,7 @@ async def start_wo_register(message: Message, state: FSMContext):
                                    reply_markup = invest_categories_kb)
 
 
-@start_router.message(F.photo)
-async def start_photo(message: Message):
-    photo_data = message.photo[-1].file_id
-    await message.answer(f'{photo_data}')
+# @start_router.message(F.photo)
+# async def start_photo(message: Message):
+#     photo_data = message.photo[-1].file_id
+#     await message.answer(f'{photo_data}')
