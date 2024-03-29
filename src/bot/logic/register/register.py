@@ -40,13 +40,15 @@ async def register_tg_name(message: Message, state: FSMContext):
     reg_data = await state.get_data()
     reg_name = reg_data.get('regFullName')
     await state.set_state(RegisterGroup.regTgName)
+    reg_tg_name = reg_data.get('regTgName')
     msg = (
         f'\n✅ Твой никнейм: @{message.from_user.username}\n'
         f'\n✅ Твое ФИО: {reg_name}\n'
         f'\n🤗 Регистрация прошла успешно!\n'
         f'\n👇🏻 Ниже представлены категории инвестирования.\n'
     )
-    if reg_name is None:
+    if reg_tg_name is None:
+        print(reg_tg_name)
         await message.answer(text = f"🥺 Упппс твой тг никнейм скрыт.\n "
                                     f"\n Нажми кнопку, пожалуйста, 📞 Поделиться контактом\n"
                                     f"\n Чтобы продолжить взаимодействие с ботом",
@@ -78,6 +80,7 @@ async def register_phone(message: Message, state: FSMContext):
 
 async def send_sit_photo(message: Message, state: FSMContext):
     await message.answer_photo(photo = CATEGORIES_IMG, caption = info, reply_markup = invest_categories_kb)
+
 
 
 
