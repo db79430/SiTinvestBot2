@@ -53,14 +53,14 @@ async def invest_contact_application(message: Message, state: FSMContext):
     reg_data = await state.get_data()
     reg_name = reg_data.get('regTgName')
     reg_phone = reg_data['phone_number']
-    if (reg_name and not reg_phone) or (reg_phone and not reg_name):
-        await message.answer(text = "✅Запрос принят. Скоро мы свяжемся с тобой",
+    # if (reg_name and not reg_phone) or (reg_phone and not reg_name):
+    await message.answer(text = "✅Запрос принят. Скоро мы свяжемся с тобой",
                              reply_markup = menu_kb)
-        await send_message_chat_partner_handler(message, state)
-    else:
-        await message.answer(text = f"⚠️🤖 Я не увидел Ваших контактов.\n"
-                                    f"\n   Пожалуйста поделитесь контактом, чтобы я обработал сообщение",
-                             reply_markup = contacts_btn)
+    await send_message_chat_partner_handler(message, state)
+    # else:
+    #     await message.answer(text = f"⚠️🤖 Я не увидел Ваших контактов.\n"
+    #                                 f"\n   Пожалуйста поделитесь контактом, чтобы я обработал сообщение",
+    #                          reply_markup = contacts_btn)
 
 
 @invest_router.message(F.text == "Меню 💼")
