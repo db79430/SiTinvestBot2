@@ -35,3 +35,5 @@ class Base:
     id: Mapped[int] = mapped_column(
         Integer, autoincrement=True, primary_key=True
     )
+
+

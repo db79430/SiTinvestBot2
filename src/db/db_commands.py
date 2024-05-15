@@ -4,7 +4,7 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.asyncio import AsyncSession, async_session
 from sqlalchemy.orm import session
 
-from src.db.models.messagedb import MessageDB
+from src.db.models.message import Message
 from src.db.models.users import Users
 
 

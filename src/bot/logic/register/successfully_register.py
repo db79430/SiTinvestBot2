@@ -1,7 +1,11 @@
+import urllib
+
 from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
+from src.bot.logic.commands.start import extract_start_param
+from src.bot.structures.fsm.state import UserLink
 from src.configuration import conf
 
 
@@ -11,17 +15,21 @@ async def send_reg_data_user_chat(message: Message, state: FSMContext):
     phone_number = str(message.contact.phone_number)
     user_id = str(message.contact.user_id)
     username = str(message.from_user.username)
+    link_type = reg_data.get('link_name')
+
     await state.update_data(
-        phone_number = message.contact.phone_number,
-        user_id = message.contact.user_id,
+        phone_number = phone_number,
+        user_id = user_id,
     )
-    chat_message = (
+
+    chat_message_contact = (
         f"Зарегистрировался новый пользователь (поделился контактом)\n"
         f"Пользователь @{username} (ID: {user_id}) успешно зарегистрирован.\n"
-        f"ФИО: {reg_name}\n"
+        f"ИМЯ: {reg_name}\n"
         f"Телефон: {phone_number}\n"
+        f"Пользователь перешел для регистрации по ссылке: {link_type}\n"
     )
-    await message.bot.send_message(conf.chat.chat_id, chat_message)
+    await message.bot.send_message(conf.chat.chat_id, chat_message_contact)
 
 
 async def send_reg_data_tg_user_chat(message: Message, state: FSMContext):
@@ -29,38 +37,13 @@ async def send_reg_data_tg_user_chat(message: Message, state: FSMContext):
     reg_name = reg_data.get('regFullName')
     user_id = message.from_user.id
     username = message.from_user.username
+    link_type = reg_data.get('link_name')
+    reg_tg_name = reg_data.get('regTgName')
     chat_message = (
         f"Зарегистрировался новый пользователь (через никнейм тг)\n"
         f"Пользователь @{username} (ID: {user_id}) успешно зарегистрирован.\n"
-        f"ФИО: {reg_name}\n"
+        f"ИМЯ: {reg_name}\n"
+        f"Никнейм: {reg_tg_name}\n"
+        f"Пользователь перешел для регистрации по ссылке: {link_type}\n"
     )
-    await message.bot.send_message(conf.chat.chat_id, chat_message)
-
-
-async def send_message_chat_handler(message: Message, state: FSMContext):
-    reg_data = await state.get_data()
-    reg_id = reg_data.get('user_id')
-    reg_name = reg_data.get('regTgName')
-
-    reg_phone = reg_data.get('phone_number')
-    reg_name = reg_data.get('regFullName')
-    username = str(message.from_user.username)
-    chat_message_text_phone = (
-        f"Пользователь @{username} (ID: {reg_id}) отправил запрос связаться с ним\n"
-        f"ФИО: {reg_name}\n"
-        f"Телeфон: {reg_phone}\n"
-    )
-    chat_message_text_tg = (
-        f"Пользователь @{username} (ID: {reg_id}) отправил запрос связаться с ним\n"
-        f"ФИО: {reg_name}\n"
-    )
-    if reg_phone is None:
-        await message.bot.send_message(conf.chat.chat_id, chat_message_text_tg)
-    else:
-        await message.bot.send_message(conf.chat.chat_id, chat_message_text_phone)
-
-
-
-
-
-
+    await message.bot.send_message(conf.chat.chat_id, text = chat_message)

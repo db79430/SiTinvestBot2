@@ -2,9 +2,13 @@
 from datetime import date
 
 import sqlalchemy as sa
-from sqlalchemy import BigInteger, Column, DATE, Integer, String
-from sqlalchemy.orm import Mapped, mapped_column
+from aiogram import Dispatcher
+from sqlalchemy import BigInteger, Column, DATE, Integer, String, exc
+from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from sqlalchemy.orm import Mapped, mapped_column, sessionmaker
 from .base import Base
+from ... import db
+from ...configuration import conf
 
 
 # class User(Base):
@@ -42,7 +46,6 @@ class Users(Base):
 
     id = Column(Integer, primary_key = True, index = True, autoincrement = True)
     tg_id = Column(BigInteger, unique = True)
-    tg_name = Column(String, nullable = False)
     username = Column(String, nullable = False)
     full_name = Column(String, nullable = False)
     phone_number = Column(String, nullable = False)
@@ -50,6 +53,8 @@ class Users(Base):
 
 
 def __repr__(self) -> str:
-    return (f"<Users{self.user_id}, {self.full_name}, {self.username}, {self.contact}, {self.phone_number}, "
+    return (f"<Users{self.user_id}, {self.full_name}, {self.username}, {self.phone_number}, "
             f"{self.reg_date}>")
+
+
 
