@@ -94,7 +94,6 @@ async def create_user(user_id: int, username: str, tg_id: int, full_name: str, p
             try:
                 session.add(user)
             except ProgrammingError as e:
-                # TODO: add log
                 pass
 
 
