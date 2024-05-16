@@ -41,7 +41,7 @@ async def send_reg_data_tg_user_chat(message: Message, state: FSMContext):
     username = message.from_user.username
     link_type = reg_data.get('link_name')
     reg_tg_name = message.from_user.username
-    link_name = await link_handler(message, state)
+    link_name = reg_data.get('link_name')
     print(link_name)
     chat_message = (
         f"Зарегистрировался новый пользователь (через никнейм тг)\n"

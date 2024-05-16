@@ -77,9 +77,6 @@ async def link_handler(message: Message, state: FSMContext):
     return link_name
 
 
-print(link_handler)
-
-
 @start_router.message(F.photo)
 async def start_photo(message: Message):
     photo_data = message.photo[-1].file_id
