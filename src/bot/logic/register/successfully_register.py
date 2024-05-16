@@ -8,6 +8,7 @@ from src.bot.logic.commands.start import extract_start_param, link_handler
 from src.bot.structures.fsm.state import RegisterGroup
 from src.configuration import conf
 
+
 async def send_reg_data_user_chat(message: Message, state: FSMContext):
     reg_data = await state.get_data()
     reg_name = reg_data.get('regFullName')
