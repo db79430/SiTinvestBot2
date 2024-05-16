@@ -165,7 +165,7 @@ async def invest_application(message: Message, state: FSMContext):
 @invest_router.message(F.text == '💬 Задать вопрос')
 async def invest_with_callback_button(message: Message, state: FSMContext):
     if not message.text.startswith('/'):
-        await message.answer("https://t.me/SiT_investment", link_preview=False)
+        await message.answer("https://t.me/SiT_investment", link_preview = False)
         # await state.set_state(RegisterGroup.question)
 
 
@@ -194,6 +194,4 @@ async def handle_click_menu(message: Message, state: FSMContext):
     await message.answer(text = "Выбери инетересующую категорию 👇🏻",
                          reply_markup = invest_categories_kb)
 
-
 # async def send_message_user(message: Message, state: FSMContext):
-
