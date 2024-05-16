@@ -100,7 +100,7 @@ async def invest_with_callback_button(message: Message, state: FSMContext):
     await message.answer_photo(photo = BY_HOME_LIFE)
     await message.answer_document(document = DOCUMENT_ID_KOPNINO)
     await message.answer_document(document = DOCUMENT_ID_VILLAGE)
-    await message.answer_document(document = DOCUMENT_ID_KOPNINO)
+    await message.answer_document(document = DOCUMENT_ID_BELAVINO)
     await message.answer(text = text_contact,
                          reply_markup = contact_us_buy_home)
 
@@ -123,7 +123,7 @@ async def invest_with_callback_button(message: Message, state: FSMContext):
     await message.answer_photo(photo = BY_HOME_SALE)
     await message.answer_document(document = DOCUMENT_ID_KOPNINO)
     await message.answer_document(document = DOCUMENT_ID_VILLAGE)
-    await message.answer_document(document = DOCUMENT_ID_KOPNINO)
+    await message.answer_document(document = DOCUMENT_ID_BELAVINO)
     await message.answer(text = text_contact,
                          reply_markup = contact_us_sale_home)
 
