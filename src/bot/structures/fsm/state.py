@@ -9,6 +9,7 @@ class RegisterGroup(StatesGroup):
     regInfo = State()
     reg_source_key = State()
     question = State()
+    link_name = State()
 
 
 class UserSelect(StatesGroup):

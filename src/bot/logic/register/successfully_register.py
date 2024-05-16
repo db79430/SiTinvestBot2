@@ -3,6 +3,8 @@ import urllib
 from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
+
+from src.bot.structures.fsm.state import RegisterGroup
 from src.configuration import conf
 
 
@@ -16,7 +18,7 @@ async def send_reg_data_user_chat(message: Message, state: FSMContext):
     print(link_name)
 
     await state.update_data(
-        link_name = link_name,
+        link_name = RegisterGroup.link_name,
         phone_number = phone_number,
         user_id = user_id,
     )

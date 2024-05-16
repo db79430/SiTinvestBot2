@@ -4,7 +4,7 @@ import urllib
 from aiogram import F, Router
 from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message
+from aiogram.types import Message, ReplyKeyboardRemove
 from src.bot.structures.fsm.state import RegisterGroup
 from src.bot.structures.keyboards.buttons import invest_categories_kb, register_kb
 from aiogram.utils.deep_linking import create_start_link
@@ -44,7 +44,7 @@ async def determine_referral_link(start_param):
     return None
 
 
-@start_router.message(CommandStart())
+@start_router.message(CommandStart(), RegisterGroup())
 async def start_wo_register(message: Message, state: FSMContext) -> None:
 
     if len(message.text.split()) > 1:
@@ -53,7 +53,7 @@ async def start_wo_register(message: Message, state: FSMContext) -> None:
         link_name = await extract_start_param(message.text)
     state = await state.get_data()
     user_id = state.get('user_id')
-    await state.set_state(link_name)
+    await state.set_state(RegisterGroup.link_name)
     text = (f'\nНиже представлено меню бота 💼\n'
             f'\nВыбери интересующую категорию 👇🏻\n')
     if not user_id:
