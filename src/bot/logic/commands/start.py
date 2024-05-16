@@ -75,6 +75,7 @@ async def link_handler(message: Message, state: FSMContext):
             print(link_name)
         else:
             link_name = await extract_start_param(message.text)
+            print(link_name)
         return link_name
     else:
         return None
