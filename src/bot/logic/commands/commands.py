@@ -21,7 +21,7 @@ async def set_commands(bot: Bot):
         BotCommand(command = 'help', description = "Поддержка")
     ]
 
-    await bot.set_my_commands(commands = commands, scope = BotCommandScopeAllPrivateChats())
+    await bot.set_my_commands(commands = commands)
 
 
 @commands_router.message(Command('menu'))
@@ -45,7 +45,7 @@ async def show_companies(message: Message, state: FSMContext):
         await message.answer(text = 'Для работы с ботом, нужно сначала пройти регистрацию',
                              reply_markup = register_kb)
     else:
-        await message.answer_document(photo = DOCUMENT_SIT, caption = "Презентация нашего проекта",
+        await message.answer_document(document = DOCUMENT_SIT, caption = "Презентация нашего проекта",
                                       reply_markup = invest_categories_kb)
 
 

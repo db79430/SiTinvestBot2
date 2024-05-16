@@ -37,13 +37,14 @@ async def register_tg_name(message: Message, state: FSMContext):
     reg_data = await state.get_data()
     reg_name = reg_data.get('regFullName')
     await state.set_state(RegisterGroup.regTgName)
-    reg_tg_name = reg_data.get('regTgName')
+    reg_tg_name = message.from_user.username
     msg = (
         f'\n✅ Твой никнейм: @{message.from_user.username}\n'
         f'\n✅ Твое имя: {reg_name}\n'
         f'\n🤗 Регистрация прошла успешно!\n'
         f'\n👇🏻 Ниже представлены категории инвестирования.\n'
     )
+    print(reg_tg_name)
     if reg_tg_name is None:
         await message.answer(text = f"🥺 Упппс твой tg никнейм скрыт.\n "
                                     f"\n Нажми кнопку, пожалуйста, 📞 Поделиться контактом\n"

@@ -29,18 +29,18 @@ referral_links = {
 }
 
 
-async def extract_start_param(url):
-    parsed_url = urllib.parse.urlparse(url)
-    query_params = urllib.parse.parse_qs(parsed_url.query)
-    start_param = query_params.get('start', [None])[0]
-    return start_param
-
-
-async def determine_referral_link(start_param):
-    for key, value in referral_links.items():
-        if start_param == extract_start_param(value):
-            return key
-    return None
+# async def extract_start_param(url):
+#     parsed_url = urllib.parse.urlparse(url)
+#     query_params = urllib.parse.parse_qs(parsed_url.query)
+#     start_param = query_params.get('start', [None])[0]
+#     return start_param
+#
+#
+# async def determine_referral_link(start_param):
+#     for key, value in referral_links.items():
+#         if start_param == extract_start_param(value):
+#             return key
+#     return None
 
 
 @start_router.message(CommandStart())

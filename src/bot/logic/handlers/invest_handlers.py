@@ -38,7 +38,7 @@ async def get_user_data(state: FSMContext, message: Message):
         phone_number = message.contact.phone_number
     return {
         'reg_id': data.get('user_id'),
-        'reg_name': data.get('regTgName'),
+        'reg_name': str(message.from_user.username) or None,
         'reg_phone': data.get('phone_number'),
         'full_name': data.get('regFullName'),
         'phone_number': data.get('phone_number') or None,
@@ -63,7 +63,7 @@ async def invest_without_callback_button(message: Message, state: FSMContext):
 async def invest_application(message: Message, state: FSMContext):
     user_data = await get_user_data(state, message)
     chat_message_text = (
-        f"Пользователь {user_data['username']} (ID: {user_data['reg_id']}) "
+        f"Пользователь @{user_data['username']} (ID: {user_data['reg_id']}) "
         f"отправил запрос связаться с ним (ипотечное)\n"
         f"Имя: {user_data['full_name']}\n"
         f"Телефон: {user_data['phone_number']}\n"
@@ -84,7 +84,7 @@ async def invest_with_callback_button(message: Message, state: FSMContext):
 async def invest_application(message: Message, state: FSMContext):
     user_data = await get_user_data(state, message)
     chat_message_text = (
-        f"Пользователь {user_data['username']} (ID: {user_data['reg_id']}) "
+        f"Пользователь @{user_data['username']} (ID: {user_data['reg_id']}) "
         f"отправил запрос связаться с ним (инвест.собственных средств)\n"
         f"Имя: {user_data['full_name']}\n"
         f"Телефон: {user_data['phone_number']}\n"
@@ -108,7 +108,7 @@ async def invest_with_callback_button(message: Message, state: FSMContext):
 async def invest_application(message: Message, state: FSMContext):
     user_data = await get_user_data(state, message)
     chat_message_text = (
-        f"Пользователь {user_data['username']} (ID: {user_data['reg_id']}) "
+        f"Пользователь @{user_data['username']} (ID: {user_data['reg_id']}) "
         f"отправил запрос связаться с ним (покупка дома)\n"
         f"Имя: {user_data['full_name']}\n"
         f"Телефон: {user_data['phone_number']}\n"
@@ -131,7 +131,7 @@ async def invest_with_callback_button(message: Message, state: FSMContext):
 async def invest_application(message: Message, state: FSMContext):
     user_data = await get_user_data(state, message)
     chat_message_text = (
-        f"Пользователь {user_data['username']} (ID: {user_data['reg_id']}) "
+        f"Пользователь @{user_data['username']} (ID: {user_data['reg_id']}) "
         f"отправил запрос связаться с ним (перепродажа дома)\n"
         f"Имя: {user_data['full_name']}\n"
         f"Телефон: {user_data['phone_number']}\n"
@@ -152,7 +152,7 @@ async def invest_with_callback_button(message: Message, state: FSMContext):
 async def invest_application(message: Message, state: FSMContext):
     user_data = await get_user_data(state, message)
     chat_message_text = (
-        f"Пользователь {user_data['username']} (ID: {user_data['reg_id']}) "
+        f"Пользователь @{user_data['username']} (ID: {user_data['reg_id']}) "
         f"отправил запрос связаться с ним (работать с нами)\n"
         f"Имя: {user_data['full_name']}\n"
         f"Телефон: {user_data['phone_number']}\n"
@@ -179,7 +179,6 @@ async def handle_click_menu(message: Message, state: FSMContext):
                          reply_markup = invest_categories_kb)
 
 
-@invest_router.message()
 async def send_message_user(message: Message, state: FSMContext):
     reg_data = await state.get_data()
     reg_id = str(message.from_user.id)

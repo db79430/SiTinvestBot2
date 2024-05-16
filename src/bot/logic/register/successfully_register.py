@@ -3,9 +3,6 @@ import urllib
 from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
-
-from src.bot.logic.commands.start import extract_start_param
-from src.bot.structures.fsm.state import UserLink
 from src.configuration import conf
 
 
