@@ -74,7 +74,10 @@ async def link_handler(message: Message, state: FSMContext):
     else:
         link_name = await extract_start_param(message.text)
     await state.update_data(link_name = link_name)
-    print(link_name)
+    return link_name
+
+
+print(link_handler)
 
 
 @start_router.message(F.photo)
