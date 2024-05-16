@@ -46,15 +46,15 @@ async def determine_referral_link(start_param):
 
 @start_router.message(CommandStart())
 async def start_wo_register(message: Message, state: FSMContext) -> None:
-    state = await state.get_data()
+
     if len(message.text.split()) > 1:
         link_name = message.text.split('/start ')[1].strip()
     else:
         link_name = await extract_start_param(message.text)
+    state = await state.get_data()
     user_id = state.get('user_id')
     text = (f'\nНиже представлено меню бота 💼\n'
             f'\nВыбери интересующую категорию 👇🏻\n')
-    print(link_name)
     if not user_id:
         await message.answer_photo(photo = START_IMG)
         await message.answer_photo(photo = START_IMG_2)
