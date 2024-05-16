@@ -13,6 +13,7 @@ async def send_reg_data_user_chat(message: Message, state: FSMContext):
     user_id = str(message.contact.user_id)
     username = str(message.from_user.username)
     link_type = reg_data.get('link_name')
+    print(link_type)
 
     await state.update_data(
         phone_number = phone_number,
@@ -35,7 +36,7 @@ async def send_reg_data_tg_user_chat(message: Message, state: FSMContext):
     user_id = message.from_user.id
     username = message.from_user.username
     link_type = reg_data.get('link_name')
-    reg_tg_name = reg_data.get('regTgName')
+    reg_tg_name = message.from_user.username
     chat_message = (
         f"Зарегистрировался новый пользователь (через никнейм тг)\n"
         f"Пользователь @{username} (ID: {user_id}) успешно зарегистрирован.\n"

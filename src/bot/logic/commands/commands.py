@@ -1,10 +1,7 @@
 from aiogram import Bot, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import BotCommand, BotCommandScopeAllPrivateChats, CallbackQuery, Message
-
-from src.bot.logic.commands.start import start_wo_register
-from src.bot.structures.fsm.state import UserClickButton
+from aiogram.types import BotCommand, BotCommandScopeDefault, Message
 from src.bot.structures.keyboards.buttons import invest_categories_kb, register_kb
 
 commands_router = Router(name = 'commands')
@@ -25,7 +22,7 @@ async def set_commands(bot: Bot):
 
 
 @commands_router.message(Command('menu'))
-async def show_menu(message: Message, state: FSMContext):
+async def show_menu(message: Message, state: FSMContext) -> None:
     state = await state.get_data()
     user_id = state.get('user_id')
     if not user_id:

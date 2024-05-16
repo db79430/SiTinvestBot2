@@ -1,3 +1,4 @@
+from aiogram.enums import ContentType
 from aiogram.fsm.context import FSMContext
 from aiogram.types import (Message, ReplyKeyboardRemove)
 from aiogram import F, Router
@@ -163,23 +164,15 @@ async def invest_application(message: Message, state: FSMContext):
 
 @invest_router.message(F.text == '💬 Задать вопрос')
 async def invest_with_callback_button(message: Message, state: FSMContext):
-    await message.answer(text = "Ответным сообщением напишите боту свой вопрос")
-    await state.set_state(RegisterGroup.question)
+    if not message.text.startswith('/'):
+        await message.answer(text = "Ответным сообщением напишите боту свой вопрос")
+        await state.set_state(RegisterGroup.question)
 
 
 @invest_router.message(RegisterGroup.question)
 async def handle_question(message: Message, state: FSMContext):
-    await message.reply(text = "Мы получили ваше сообщение, скоро свяжемся")
-    await send_message_user(message, state)
-
-
-@invest_router.message(F.text == '💼 Меню')
-async def handle_click_menu(message: Message, state: FSMContext):
-    await message.answer(text = "Выбери инетересующую категорию 👇🏻",
-                         reply_markup = invest_categories_kb)
-
-
-async def send_message_user(message: Message, state: FSMContext):
+    if not message.text.startswith('/'):
+        await message.answer(text = "Мы получили ваше сообщение, скоро свяжемся")
     reg_data = await state.get_data()
     reg_id = str(message.from_user.id)
     reg_name = reg_data.get('regTgName') or None
@@ -193,3 +186,13 @@ async def send_message_user(message: Message, state: FSMContext):
         f"Cообщение пользователя: {message.text}\n"
     )
     await message.bot.send_message(conf.chat.chat_id, send_message_text_user)
+
+
+@invest_router.message(F.text == '💼 Меню')
+async def handle_click_menu(message: Message, state: FSMContext):
+    await message.answer(text = "Выбери инетересующую категорию 👇🏻",
+                         reply_markup = invest_categories_kb)
+
+
+# async def send_message_user(message: Message, state: FSMContext):
+

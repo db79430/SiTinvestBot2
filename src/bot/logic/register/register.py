@@ -71,9 +71,9 @@ async def register_phone(message: Message, state: FSMContext):
         f'\n🤗 Регистрация прошла успешно!\n'
         f'\n👇🏻Ниже представлены категории инвестирования.\n'
     )
+    await message.answer(text = msg, reply_markup = ReplyKeyboardRemove())
     await send_sit_photo(message, state)
     await send_reg_data_user_chat(message, state)
-    await message.answer(text = msg, reply_markup = ReplyKeyboardRemove())
 
 
 async def send_sit_photo(message: Message, state: FSMContext):
