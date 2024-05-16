@@ -42,7 +42,7 @@ async def send_reg_data_tg_user_chat(message: Message, state: FSMContext):
         f"Зарегистрировался новый пользователь (через никнейм тг)\n"
         f"Пользователь @{username} (ID: {user_id}) успешно зарегистрирован.\n"
         f"ИМЯ: {reg_name}\n"
-        f"Никнейм: {reg_tg_name}\n"
+        f"Никнейм: @{reg_tg_name}\n"
         f"Пользователь перешел для регистрации по ссылке: {link_type}\n"
     )
     await message.bot.send_message(conf.chat.chat_id, text = chat_message)
