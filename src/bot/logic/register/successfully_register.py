@@ -12,10 +12,11 @@ async def send_reg_data_user_chat(message: Message, state: FSMContext):
     phone_number = str(message.contact.phone_number)
     user_id = str(message.contact.user_id)
     username = str(message.from_user.username)
-    link_type = reg_data.get('link_name')
+    link_type = reg_data.get("link_name")
     print(link_type)
 
     await state.update_data(
+        link_name = link_type,
         phone_number = phone_number,
         user_id = user_id,
     )
