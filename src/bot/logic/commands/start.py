@@ -29,18 +29,18 @@ referral_links = {
 }
 
 
-# async def extract_start_param(url):
-#     parsed_url = urllib.parse.urlparse(url)
-#     query_params = urllib.parse.parse_qs(parsed_url.query)
-#     start_param = query_params.get('start', [None])[0]
-#     return start_param
-#
-#
-# async def determine_referral_link(start_param):
-#     for key, value in referral_links.items():
-#         if start_param == extract_start_param(value):
-#             return key
-#     return None
+async def extract_start_param(url):
+    parsed_url = urllib.parse.urlparse(url)
+    query_params = urllib.parse.parse_qs(parsed_url.query)
+    start_param = query_params.get('start', [None])[0]
+    return start_param
+
+
+async def determine_referral_link(start_param):
+    for key, value in referral_links.items():
+        if start_param == extract_start_param(value):
+            return key
+    return None
 
 
 @start_router.message(CommandStart())
@@ -48,9 +48,12 @@ async def start_wo_register(message: Message, state: FSMContext) -> None:
     state = await state.get_data()
     if len(message.text.split()) > 1:
         link_name = message.text.split('/start ')[1].strip()
+    else:
+        link_name = await extract_start_param(message.get_args())
     user_id = state.get('user_id')
     text = (f'\nНиже представлено меню бота 💼\n'
             f'\nВыбери интересующую категорию 👇🏻\n')
+    print(link_name)
     if not user_id:
         await message.answer_photo(photo = START_IMG)
         await message.answer_photo(photo = START_IMG_2)
