@@ -69,12 +69,15 @@ async def start_wo_register(message: Message, state: FSMContext) -> None:
 
 
 async def link_handler(message: Message, state: FSMContext):
-    if len(message.text.split()) > 1:
-        link_name = message.text.split('/start ')[1].strip()
+    if message.text is not None:
+        if len(message.text.split()) > 1:
+            link_name = message.text.split('/start ')[1].strip()
+            print(link_name)
+        else:
+            link_name = await extract_start_param(message.text)
+        return link_name
     else:
-        link_name = await extract_start_param(message.text)
-    await state.update_data(link_name = link_name)
-    return link_name
+        return None
 
 
 @start_router.message(F.photo)
