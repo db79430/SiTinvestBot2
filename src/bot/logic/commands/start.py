@@ -53,7 +53,6 @@ async def start_wo_register(message: Message, state: FSMContext) -> None:
         link_name = await extract_start_param(message.text)
     state = await state.get_data()
     user_id = state.get('user_id')
-    await state.set_state(RegisterGroup.link_name)
     text = (f'\nНиже представлено меню бота 💼\n'
             f'\nВыбери интересующую категорию 👇🏻\n')
     if not user_id:
