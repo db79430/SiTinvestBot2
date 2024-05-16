@@ -165,8 +165,8 @@ async def invest_application(message: Message, state: FSMContext):
 @invest_router.message(F.text == '💬 Задать вопрос')
 async def invest_with_callback_button(message: Message, state: FSMContext):
     if not message.text.startswith('/'):
-        await message.answer(text = "Ответным сообщением напишите боту свой вопрос")
-        await state.set_state(RegisterGroup.question)
+        await message.answer("https://t.me/SiT_investment", link_preview=False)
+        # await state.set_state(RegisterGroup.question)
 
 
 @invest_router.message(RegisterGroup.question)
@@ -183,6 +183,7 @@ async def handle_question(message: Message, state: FSMContext):
         f"Пользователь @{username} (ID: {reg_id}) отправил сообщение в чат\n"
         f"ФИО: {reg_name}\n"
         f"Телефон: {reg_phone}\n"
+        f"Никнейм: @{username}\n"
         f"Cообщение пользователя: {message.text}\n"
     )
     await message.bot.send_message(conf.chat.chat_id, send_message_text_user)
