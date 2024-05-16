@@ -25,7 +25,8 @@ referral_links = {
     "dance": "https://t.me/SITinvest_bot?start=1234567",
     "friends": "https://t.me/SITinvest_bot?start=friends",
     "promo": "https://t.me/SITinvest_bot?start=promo",
-    "biglini": "https://t.me/SITinvest_bot?start=biglini"
+    "biglini": "https://t.me/SITinvest_bot?start=biglini",
+    "prosto_bot": "https://t.me/SITinvest_bot?start"
 }
 
 
@@ -49,7 +50,7 @@ async def start_wo_register(message: Message, state: FSMContext) -> None:
     if len(message.text.split()) > 1:
         link_name = message.text.split('/start ')[1].strip()
     else:
-        link_name = await extract_start_param(message.get_args())
+        link_name = await extract_start_param(message.text)
     user_id = state.get('user_id')
     text = (f'\nНиже представлено меню бота 💼\n'
             f'\nВыбери интересующую категорию 👇🏻\n')
