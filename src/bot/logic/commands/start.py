@@ -31,10 +31,7 @@ referral_links = {
 
 
 async def extract_start_param(url):
-    parsed_url = urllib.parse.urlparse(url)
-    query_params = urllib.parse.parse_qs(parsed_url.query)
-    start_param = query_params.get('start', [None])[0]
-    return start_param
+    pass
 
 
 async def determine_referral_link(start_param):
@@ -42,6 +39,21 @@ async def determine_referral_link(start_param):
         if start_param == extract_start_param(value):
             return key
     return None
+
+
+async def link_handler(message: Message, state: FSMContext):
+    state_data = await state.get_data()
+    if message.text is not None:
+        if len(message.text.split()) > 1:
+            link_name = message.text.split('/start ')[1].strip()
+        else:
+            link_name = await extract_start_param(message.text)
+
+        await state.update_data(link_name = link_name)
+        print(link_name)
+        return link_name
+    else:
+        return None
 
 
 @start_router.message(CommandStart())
@@ -66,22 +78,6 @@ async def start_wo_register(message: Message, state: FSMContext) -> None:
     else:
         await message.answer_photo(photo = START_IMG_3, caption = text,
                                    reply_markup = invest_categories_kb)
-
-
-async def link_handler(message: Message, state: FSMContext):
-    state = await state.get_data()
-    if message.text is not None:
-        if len(message.text.split()) > 1:
-            link_name = message.text.split('/start ')[1].strip()
-            await state.update_data(link_name = link_name)
-            print(link_name)
-        else:
-            link_name = await extract_start_param(message.text)
-            await state.update_data(link_name = link_name)
-            print(link_name)
-        return link_name
-    else:
-        return None
 
 
 @start_router.message(F.photo)
