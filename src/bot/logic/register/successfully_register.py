@@ -4,7 +4,6 @@ from aiogram.enums import ParseMode
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message
 
-from src.bot.logic.commands.start import extract_start_param, link_handler
 from src.bot.structures.fsm.state import RegisterGroup
 from src.configuration import conf
 
@@ -15,14 +14,7 @@ async def send_reg_data_user_chat(message: Message, state: FSMContext):
     phone_number = str(message.contact.phone_number)
     user_id = str(message.contact.user_id)
     username = str(message.from_user.username)
-    await link_handler(message, state)
     link_name = reg_data.get('link_name')
-    await state.update_data(
-        link_name = link_name,
-        phone_number = phone_number,
-        user_id = user_id,
-    )
-
     chat_message_contact = (
         f"Зарегистрировался новый пользователь (поделился контактом)\n"
         f"Пользователь @{username} (ID: {user_id}) успешно зарегистрирован.\n"
@@ -40,7 +32,6 @@ async def send_reg_data_tg_user_chat(message: Message, state: FSMContext):
     username = message.from_user.username
     link_type = reg_data.get('link_name')
     reg_tg_name = message.from_user.username
-    await link_handler(message, state)
     link_name = reg_data.get('link_name')
     print(link_name)
     chat_message = (

@@ -4,13 +4,9 @@ import urllib
 from aiogram import F, Router
 from aiogram.filters import CommandStart
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message, ReplyKeyboardRemove
+from aiogram.types import Message
 from src.bot.structures.fsm.state import RegisterGroup
 from src.bot.structures.keyboards.buttons import invest_categories_kb, register_kb
-from aiogram.utils.deep_linking import create_start_link
-
-from src.db import Database
-from src.db.repositories.user import save_referral_data
 
 start_router = Router(name = 'start')
 
@@ -30,38 +26,18 @@ referral_links = {
 }
 
 
-async def extract_start_param(url):
-    pass
-
-
-async def determine_referral_link(start_param):
-    for key, value in referral_links.items():
-        if start_param == extract_start_param(value):
-            return key
-    return None
-
-
-async def link_handler(message: Message, state: FSMContext):
-    state_data = await state.get_data()
-    if message.text is not None:
-        if len(message.text.split()) > 1:
-            link_name = message.text.split('/start ')[1].strip()
-        else:
-            link_name = await extract_start_param(message.text)
-
-        await state.update_data(link_name = link_name)
-        print(link_name)
-        return link_name
-    else:
-        return None
-
-
 @start_router.message(CommandStart())
 async def start_wo_register(message: Message, state: FSMContext) -> None:
-    state = await state.get_data()
-    user_id = state.get('user_id')
+    if message.text.startswith("/start"):
+        link_name = message.text[7:]
+        if link_name:
+            await state.update_data(link_name=link_name)
+        else:
+            await state.update_data(link_name= "Перешел через поиск тг")
     text = (f'\nНиже представлено меню бота 💼\n'
             f'\nВыбери интересующую категорию 👇🏻\n')
+    state_data = await state.get_data()
+    user_id = state_data.get('user_id')
     if not user_id:
         await message.answer_photo(photo = START_IMG)
         await message.answer_photo(photo = START_IMG_2)

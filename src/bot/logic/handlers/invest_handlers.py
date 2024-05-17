@@ -43,7 +43,8 @@ async def get_user_data(state: FSMContext, message: Message):
         'reg_phone': data.get('phone_number'),
         'full_name': data.get('regFullName'),
         'phone_number': data.get('phone_number') or None,
-        'username': str(message.from_user.username)
+        'username': str(message.from_user.username),
+        'link_name': data.get('link_name')
     }
 
 
@@ -69,6 +70,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Имя: {user_data['full_name']}\n"
         f"Телефон: {user_data['phone_number']}\n"
         f"Никнейм: @{user_data['reg_name']}\n"
+        f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
     await message.bot.send_message(conf.chat.chat_id, chat_message_text)
 
@@ -90,6 +92,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Имя: {user_data['full_name']}\n"
         f"Телефон: {user_data['phone_number']}\n"
         f"Никнейм: @{user_data['reg_name']}\n"
+        f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
     await message.bot.send_message(conf.chat.chat_id, chat_message_text)
 
@@ -114,6 +117,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Имя: {user_data['full_name']}\n"
         f"Телефон: {user_data['phone_number']}\n"
         f"Никнейм: @{user_data['reg_name']}\n"
+        f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
     await message.bot.send_message(conf.chat.chat_id, chat_message_text)
 
@@ -137,6 +141,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Имя: {user_data['full_name']}\n"
         f"Телефон: {user_data['phone_number']}\n"
         f"Никнейм: @{user_data['reg_name']}\n"
+        f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
     await message.bot.send_message(conf.chat.chat_id, chat_message_text)
 
@@ -158,6 +163,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Имя: {user_data['full_name']}\n"
         f"Телефон: {user_data['phone_number']}\n"
         f"Никнейм: @{user_data['reg_name']}\n"
+        f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
     await message.bot.send_message(conf.chat.chat_id, chat_message_text)
 
@@ -165,28 +171,29 @@ async def invest_application(message: Message, state: FSMContext):
 @invest_router.message(F.text == '💬 Задать вопрос')
 async def invest_with_callback_button(message: Message, state: FSMContext):
     if not message.text.startswith('/'):
+        await message.answer(text = "Мы всегда на связи, напиши нам. 🤗")
         await message.answer("https://t.me/SiT_investment", link_preview = False)
         # await state.set_state(RegisterGroup.question)
 
 
-@invest_router.message(RegisterGroup.question)
-async def handle_question(message: Message, state: FSMContext):
-    if not message.text.startswith('/'):
-        await message.answer(text = "Мы получили ваше сообщение, скоро свяжемся")
-    reg_data = await state.get_data()
-    reg_id = str(message.from_user.id)
-    reg_name = reg_data.get('regTgName') or None
-    reg_phone = reg_data.get('phone_number') or None
-    reg_name = reg_data.get('regFullName')
-    username = str(message.from_user.username)
-    send_message_text_user = (
-        f"Пользователь @{username} (ID: {reg_id}) отправил сообщение в чат\n"
-        f"ФИО: {reg_name}\n"
-        f"Телефон: {reg_phone}\n"
-        f"Никнейм: @{username}\n"
-        f"Cообщение пользователя: {message.text}\n"
-    )
-    await message.bot.send_message(conf.chat.chat_id, send_message_text_user)
+# @invest_router.message(RegisterGroup.question)
+# async def handle_question(message: Message, state: FSMContext):
+#     if not message.text.startswith('/'):
+#         await message.answer(text = "Мы получили ваше сообщение, скоро свяжемся")
+#     reg_data = await state.get_data()
+#     reg_id = str(message.from_user.id)
+#     reg_name = reg_data.get('regTgName') or None
+#     reg_phone = reg_data.get('phone_number') or None
+#     reg_name = reg_data.get('regFullName')
+#     username = str(message.from_user.username)
+#     send_message_text_user = (
+#         f"Пользователь @{username} (ID: {reg_id}) отправил сообщение в чат\n"
+#         f"ФИО: {reg_name}\n"
+#         f"Телефон: {reg_phone}\n"
+#         f"Никнейм: @{username}\n"
+#         f"Cообщение пользователя: {message.text}\n"
+#     )
+#     await message.bot.send_message(conf.chat.chat_id, send_message_text_user)
 
 
 @invest_router.message(F.text == '💼 Меню')
@@ -194,4 +201,7 @@ async def handle_click_menu(message: Message, state: FSMContext):
     await message.answer(text = "Выбери инетересующую категорию 👇🏻",
                          reply_markup = invest_categories_kb)
 
-# async def send_message_user(message: Message, state: FSMContext):
+
+@invest_router.message()
+async def message_user(message: Message, state: FSMContext):
+    await message.reply(text = "Oй, я такого не знаю. Выбери что-нибудь из списка меню!")
