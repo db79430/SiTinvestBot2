@@ -72,7 +72,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Никнейм: @{user_data['reg_name']}\n"
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
-    await message.bot.send_message(conf.chat.chat_id, chat_message_text)
+    await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
 
 
 @invest_router.message(F.text == '💵 Инвестирование собственных средств')
@@ -94,7 +94,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Никнейм: @{user_data['reg_name']}\n"
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
-    await message.bot.send_message(conf.chat.chat_id, chat_message_text)
+    await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
 
 
 @invest_router.message(F.text == '🏡 Покупка дома для жилья')
@@ -119,7 +119,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Никнейм: @{user_data['reg_name']}\n"
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
-    await message.bot.send_message(conf.chat.chat_id, chat_message_text)
+    await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
 
 
 @invest_router.message(F.text == '🏘 Покупка дома для дальнейшей перепродажи')
@@ -143,7 +143,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Никнейм: @{user_data['reg_name']}\n"
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
-    await message.bot.send_message(conf.chat.chat_id, chat_message_text)
+    await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
 
 
 @invest_router.message(F.text == '👨🏻‍💻 Работать с нами')
@@ -165,7 +165,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Никнейм: @{user_data['reg_name']}\n"
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
-    await message.bot.send_message(conf.chat.chat_id, chat_message_text)
+    await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
 
 
 @invest_router.message(F.text == '💬 Задать вопрос')
@@ -205,4 +205,4 @@ async def handle_click_menu(message: Message, state: FSMContext):
 @invest_router.message(RegisterGroup.question)
 async def message_user(message: Message, state: FSMContext):
     if not message.text.startswith('/'):
-        await message.reply(text = "Oй, я такого не знаю. Выбери что-нибудь из списка меню!")
+        await message.reply(text = "Oй, я такого не знаю. Нажми кнопку меню и выбери из что-нибудь из списка!", reply_markup=menu_kb)
