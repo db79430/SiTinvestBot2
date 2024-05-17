@@ -18,7 +18,7 @@ async def set_commands(bot: Bot):
         BotCommand(command = 'help', description = "Поддержка")
     ]
 
-    await bot.set_my_commands(commands = commands, scope = BotCommandScopeDefault())
+    await bot.set_my_commands(commands = commands)
 
 
 @commands_router.message(Command('menu'))
