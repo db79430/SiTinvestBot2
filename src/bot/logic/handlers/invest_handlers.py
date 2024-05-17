@@ -205,4 +205,4 @@ async def handle_click_menu(message: Message, state: FSMContext):
 @invest_router.message()
 async def message_user(message: Message, state: FSMContext):
     if not message.text.startswith('/'):
-        await message.reply(text = "Oй, я такого не знаю. Нажми кнопку меню и выбери из что-нибудь из списка!", reply_markup=menu_kb)
+        await message.reply(text = "Oй, я такого не знаю. Нажми кнопку меню и выбери что-нибудь из списка!", reply_markup=menu_kb)
