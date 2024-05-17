@@ -30,6 +30,7 @@ DOCUMENT_ID_BELAVINO = 'BQACAgIAAxkBAAIGDmZE4evSQ-6OIOKvFVzn0OU2U6w5AALITwACDo8h
 text_contact = (f"Жаждешь подробностей? Просто нажми кнопку внизу 👇🏻\n"
                 f"Оставь заявку, и мы отправим тебе всю информацию\n"
                 f"и ответим на все твои вопросы.")
+text_ok = (f"👍🏻 Запрос принят, в течение некоторого времени, мы свяжемся с тобой")
 
 
 async def get_user_data(state: FSMContext, message: Message):
@@ -73,6 +74,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
     await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
+    await message.answer(text = text_ok, reply_markup=menu_kb)
 
 
 @invest_router.message(F.text == '💵 Инвестирование собственных средств')
@@ -95,6 +97,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
     await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
+    await message.answer(text = text_ok, reply_markup=menu_kb)
 
 
 @invest_router.message(F.text == '🏡 Покупка дома для жилья')
@@ -120,6 +123,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
     await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
+    await message.answer(text = text_ok, reply_markup = menu_kb)
 
 
 @invest_router.message(F.text == '🏘 Покупка дома для дальнейшей перепродажи')
@@ -144,6 +148,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
     await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
+    await message.answer(text = text_ok, reply_markup = menu_kb)
 
 
 @invest_router.message(F.text == '👨🏻‍💻 Работать с нами')
@@ -166,6 +171,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
     await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
+    await message.answer(text = text_ok, reply_markup = menu_kb)
 
 
 @invest_router.message(F.text == '💬 Задать вопрос')
