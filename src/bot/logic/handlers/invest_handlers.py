@@ -73,7 +73,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Никнейм: @{user_data['reg_name']}\n"
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
-    await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
+    await message.bot.send_message(conf.chat.chat_id, chat_message_text)
     await message.answer(text = text_ok, reply_markup=menu_kb)
 
 
@@ -96,7 +96,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Никнейм: @{user_data['reg_name']}\n"
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
-    await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
+    await message.bot.send_message(conf.chat.chat_id, chat_message_text)
     await message.answer(text = text_ok, reply_markup=menu_kb)
 
 
@@ -122,7 +122,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Никнейм: @{user_data['reg_name']}\n"
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
-    await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
+    await message.bot.send_message(conf.chat.chat_id, chat_message_text)
     await message.answer(text = text_ok, reply_markup = menu_kb)
 
 
@@ -147,7 +147,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Никнейм: @{user_data['reg_name']}\n"
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
-    await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
+    await message.bot.send_message(conf.chat.chat_id, chat_message_text)
     await message.answer(text = text_ok, reply_markup = menu_kb)
 
 
@@ -170,7 +170,7 @@ async def invest_application(message: Message, state: FSMContext):
         f"Никнейм: @{user_data['reg_name']}\n"
         f"Пользователь перешел по ссылке: {user_data['link_name']}\n"
     )
-    await message.bot.send_message(conf.chat.chat_id, chat_message_text, reply_markup=ReplyKeyboardRemove())
+    await message.bot.send_message(conf.chat.chat_id, chat_message_text)
     await message.answer(text = text_ok, reply_markup = menu_kb)
 
 
