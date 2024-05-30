@@ -11,13 +11,15 @@ from src.configuration import conf
 
 invest_router = Router(name = 'invest_router')
 
-TEXT_1 = 'AgACAgIAAxkBAAP2Zjjsib2ACRknaZNojNERu92HsqYAAsPfMRvIrslJolbGchFQ928BAAMCAAN5AAM1BA'
-TEXT_2 = 'AgACAgIAAxkBAAP4Zjjstls7zBYmNMGOTmu0TwHRhSAAAsXfMRvIrslJCvmEW8an1dQBAAMCAAN5AAM1BA'
+TEXT_1 = 'AgACAgIAAxkBAAIOK2ZYe05fxovoSvpSLvxBfyBr1BEeAAL_3DEb32rISo91rtY3ZAWUAQADAgADeQADNQQ'
+TEXT_2 = 'AgACAgIAAxkBAAIOLWZYe3yE5vzGgMuNfPk7gsSfWu7jAAIG3TEb32rISu6bEk96PNqPAQADAgADeQADNQQ'
 WHO_SEARCH = 'AgACAgIAAxkBAAP-ZjjtDta3omaz_UmkKgidP5X_CAoAAsnfMRvIrslJmH1ChaZGcrYBAAMCAAN5AAM1BA'
 PARTNER_IMG = 'AgACAgIAAxkBAAIBAmY48QG9zsPzWpVn5nAawNAPUbDyAALW3zEbyK7JSSQohXvRYCP6AQADAgADeQADNQQ'
-INVEST_IMG = 'AgACAgIAAxkBAAIDX2ZEacgEPTP7AAHcaafsWBrjgGxv3gACqtYxGw6PIUq2Gbrd4boCCwEAAwIAA3kAAzUE'
+INVEST_IMG = 'AgACAgIAAxkBAAIOKWZYeyRRCCkFZVQjoEcc0w5pw6LxAAL83DEb32rISjVe4FqHtuvJAQADAgADeQADNQQ'
+CONCEPT_IMG = 'AgACAgIAAxkBAAIOOWZYe7OSUhcyBjaznCYAAUAPXrKXrQACK90xG99qyErJInfwmPZ3IgEAAwIAA3kAAzUE'
 CONCEPT_IMG_1 = 'AgACAgIAAxkBAAP6Zjjs1tp3mc4JQ7iffSLS_U_rjq0AAsffMRvIrslJC9sGB7TeQHsBAAMCAAN5AAM1BA'
 CONCEPT_IMG_2 = 'AgACAgIAAxkBAAIBDWY48faJMkhzb1_tBLt2f7dfgoI1AALI3zEbyK7JSUB6NItOu5JgAQADAgADeQADNQQ'
+CONCEPT_IMG_3 = 'AgACAgIAAxkBAAIOWGZYfF7ERyHbVJj5fshSnnm7SvCaAAI93TEb32rISqcmA7n9_KTYAQADAgADeQADNQQ'
 BY_HOME_LIFE = 'AgACAgIAAxkBAAIEM2ZEnZIlpaWmlSU_KcqHQmYGCMWjAAL21zEbDo8hSnqNcK6JWSTPAQADAgADeQADNQQ'
 BY_HOME_SALE = 'AgACAgIAAxkBAAIBBGY48UxqNNmIFtZSvheqx-BnlSkeAALY3zEbyK7JSb3ZfxB7YdqtAQADAgADeQADNQQ'
 CHAT_ID = '-1002008269761'
@@ -26,6 +28,7 @@ INVEST_MONEY_IMG = 'AgACAgIAAxkBAAIDbmZEai3L1RastxUXyAE4kNo01lWdAAKu1jEbDo8hSo7I
 DOCUMENT_ID_KOPNINO = 'BQACAgIAAxkBAAIGAAFmRN22lhLX4kTu_iyFzLOomKfKEgACe08AAg6PIUqhcRblCqmU4jUE'
 DOCUMENT_ID_VILLAGE = 'BQACAgIAAxkBAAIGAmZE3ynz7F2EV2jnmIUx9WEc8FB8AAKeTwACDo8hSpq_hs_pCx_gNQQ'
 DOCUMENT_ID_BELAVINO = 'BQACAgIAAxkBAAIGDmZE4evSQ-6OIOKvFVzn0OU2U6w5AALITwACDo8hSgwbMiLa273iNQQ'
+DOCUMENT_ID_OUTLET = 'BQACAgIAAxkBAAIOiGZYgNBhnjoTX-MVcpA7pswjF-YcAAIPTAAC32rISrryLZy3d-O8NQQ'
 
 text_contact = (f"Жаждешь подробностей? Просто нажми кнопку внизу 👇🏻\n"
                 f"Оставь заявку, и мы отправим тебе всю информацию\n"
@@ -49,12 +52,14 @@ async def get_user_data(state: FSMContext, message: Message):
     }
 
 
-@invest_router.message(F.text == '💸 Инвестирование без вложений')
+@invest_router.message(F.text == '💸 Забрать 250 000 рублей')
 async def invest_without_callback_button(message: Message, state: FSMContext):
     await state.set_state(UserSelect.wo_money)
     await message.answer_photo(photo = INVEST_IMG)
     await message.answer_photo(photo = TEXT_1)
     await message.answer_photo(photo = TEXT_2)
+    await message.answer_photo(photo = CONCEPT_IMG)
+    await message.answer_photo(photo = CONCEPT_IMG_3)
     await message.answer_photo(photo = CONCEPT_IMG_1)
     await message.answer_photo(photo = CONCEPT_IMG_2)
     await message.answer_photo(photo = WHO_SEARCH)
@@ -62,7 +67,7 @@ async def invest_without_callback_button(message: Message, state: FSMContext):
                          reply_markup = contact_us_wo_money)
 
 
-@invest_router.message(F.text == '💬Заявка: инвестирование без вложений')
+@invest_router.message(F.text == '💬Заявка: Забрать 250 000 рублей')
 async def invest_application(message: Message, state: FSMContext):
     user_data = await get_user_data(state, message)
     chat_message_text = (
@@ -107,6 +112,7 @@ async def invest_with_callback_button(message: Message, state: FSMContext):
     await message.answer_document(document = DOCUMENT_ID_KOPNINO)
     await message.answer_document(document = DOCUMENT_ID_VILLAGE)
     await message.answer_document(document = DOCUMENT_ID_BELAVINO)
+    await message.answer_document(document = DOCUMENT_ID_OUTLET)
     await message.answer(text = text_contact,
                          reply_markup = contact_us_buy_home)
 

@@ -1,7 +1,7 @@
 from aiogram import Bot, Router
 from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
-from aiogram.types import BotCommand, BotCommandScopeDefault, Message
+from aiogram.types import BotCommand, BotCommandScopeChat, BotCommandScopeDefault, Message
 from src.bot.structures.keyboards.buttons import invest_categories_kb, register_kb
 
 commands_router = Router(name = 'commands')
@@ -12,13 +12,13 @@ DOCUMENT_SIT = 'BQACAgIAAxkBAAIGLGZE4utiOQABm6iBgEoa8p4DJa6sfwAC208AAg6PIUoy4kDg
 
 async def set_commands(bot: Bot):
     commands = [
-        BotCommand(command = 'start', description = "Запуск бота"),
-        BotCommand(command = 'menu', description = "Меню бота"),
-        BotCommand(command = 'company', description = "О проекте"),
-        BotCommand(command = 'help', description = "Поддержка")
+        BotCommand(command='start', description='Запуск бота'),
+        BotCommand(command='menu', description='Меню бота'),
+        BotCommand(command='company', description='О проекте'),
+        BotCommand(command='help', description='Поддержка')
     ]
+    await bot.set_my_commands(commands=commands, scope = BotCommandScopeDefault())
 
-    await bot.set_my_commands(commands = commands, scope = BotCommandScopeDefault())
 
 
 @commands_router.message(Command('menu'))
@@ -47,5 +47,5 @@ async def show_companies(message: Message, state: FSMContext):
 
 
 @commands_router.message(Command('help'))
-async def show_menu(message: Message):
+async def show_help(message: Message):
     await message.answer(text = '❓По всем вопросам, наша служба поддержки @SiT_investment, всегда на связи')

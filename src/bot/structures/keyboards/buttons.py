@@ -2,7 +2,7 @@ from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
 invest_categories_kb = ReplyKeyboardMarkup(
     keyboard = [
-            [KeyboardButton(text='💸 Инвестирование без вложений')],
+            [KeyboardButton(text='💸 Забрать 250 000 рублей')],
             [KeyboardButton(text='💵 Инвестирование собственных средств')],
             [KeyboardButton(text='🏡 Покупка дома для жилья')],
             [KeyboardButton(text='🏘 Покупка дома для дальнейшей перепродажи')],
@@ -31,7 +31,7 @@ contact_us = ReplyKeyboardMarkup(
 
 contact_us_wo_money = ReplyKeyboardMarkup(
     keyboard = [
-        [KeyboardButton(text = '💬Заявка: инвестирование без вложений')],
+        [KeyboardButton(text = '💬Заявка: Забрать 250 000 рублей')],
         [KeyboardButton(text = '💼 Меню')]
     ],
     resize_keyboard = True,

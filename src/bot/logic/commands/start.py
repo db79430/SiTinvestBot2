@@ -22,7 +22,9 @@ referral_links = {
     "friends": "https://t.me/SITinvest_bot?start=friends",
     "promo": "https://t.me/SITinvest_bot?start=promo",
     "biglini": "https://t.me/SITinvest_bot?start=biglini",
-    "prosto_bot": "https://t.me/SITinvest_bot?start=start"
+    "prosto_bot": "https://t.me/SITinvest_bot?start=start",
+    "VIOLET SHARK": "https://t.me/SITinvest_bot?start=violet-shark",
+    "mailing list": "https://t.me/SITinvest_bot?start=mailing-list"
 }
 
 
